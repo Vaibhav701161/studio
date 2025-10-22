@@ -1,5 +1,5 @@
 /**
- * Shared TypeScript interfaces and types for the Sourcemeta Studio extension
+ * Shared TypeScript interfaces and types
  */
 
 export interface FileInfo {
@@ -30,13 +30,8 @@ export interface CommandResult {
     exitCode: number | null;
 }
 
-export interface MetaschemaResult extends CommandResult {}
-export interface FormatResult extends CommandResult {}
-
-export interface WebviewMessage {
-    command: 'goToPosition' | 'formatSchema';
-    position?: [number, number, number, number];
-}
+export type MetaschemaResult = CommandResult;
+export type FormatResult = CommandResult;
 
 export interface PanelState {
     fileInfo: FileInfo | null;
@@ -46,10 +41,17 @@ export interface PanelState {
     metaschemaResult: MetaschemaResult;
 }
 
-export enum DiagnosticType {
-    Lint = 'lint',
-    Metaschema = 'metaschema'
+export interface WebviewMessage {
+    command: 'goToPosition' | 'formatSchema';
+    position?: [number, number, number, number];
 }
+
+export const DiagnosticType = {
+    Lint: 'lint',
+    Metaschema: 'metaschema'
+} as const;
+
+export type DiagnosticType = typeof DiagnosticType[keyof typeof DiagnosticType];
 
 export interface TabStatus {
     indicator: string;
