@@ -41,7 +41,7 @@ export interface MetaschemaError {
 }
 
 export interface MetaschemaResult extends CommandResult {
-    errors?: MetaschemaError[];
+    errors?: (MetaschemaError | CliError)[];
 }
 
 export type FormatResult = CommandResult;
@@ -54,12 +54,28 @@ export interface PanelState {
     metaschemaResult: MetaschemaResult;
     isLoading?: boolean;
     formatLoading?: boolean;
+    hasParseErrors?: boolean;
+    blockedByMetaschema?: boolean;
 }
 
 export interface WebviewMessage {
     command: 'goToPosition' | 'formatSchema' | 'openExternal';
     position?: [number, number, number, number];
     url?: string;
+}
+
+export interface CliError {
+    error: string;
+    line?: number;
+    column?: number;
+    filePath?: string;
+    identifier?: string;
+    location?: string;
+    rule?: string;
+    testNumber?: number;
+    uri?: string;
+    command?: string;
+    option?: string;
 }
 
 export const DiagnosticType = {
