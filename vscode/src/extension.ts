@@ -43,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     }
 
     panelManager = new PanelManager(context.extensionPath);
-    commandExecutor = new CommandExecutor(context.extensionPath);
+    commandExecutor = new CommandExecutor();
     diagnosticManager = new DiagnosticManager();
 
     diagnosticManager.getCollections().forEach(collection => {
